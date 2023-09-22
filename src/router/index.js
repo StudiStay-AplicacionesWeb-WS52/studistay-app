@@ -1,13 +1,23 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import PostsView from '../rooms/pages/post-list.component.vue'
+import LoginView from '../login/components/main-section.component.vue'
+import RegisterView from '../register/components/main-section.component.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'posts'
+      name: 'login',
+      component: LoginView
     },
+
+    {
+      path: '/register',
+      name: 'register',
+      component: RegisterView
+    },
+
     {
       path: '/posts',
       name: 'posts',
