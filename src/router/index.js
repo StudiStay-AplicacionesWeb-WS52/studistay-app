@@ -40,6 +40,7 @@ const router = createRouter({
       component: () => import('../rooms/pages/details.component.vue'), // Ajusta la ruta según la ubicación de tu componente
      
     },
+    
   ]
 })
 
