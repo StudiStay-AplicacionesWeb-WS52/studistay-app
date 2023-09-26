@@ -33,7 +33,14 @@ const router = createRouter({
       path: '/profile',
       name: 'profile',
       component: () => import('../rooms/pages/profile-view.component.vue')
-    }
+    },
+    {
+      path: '/details',
+      name: 'details',
+      component: () => import('../rooms/pages/details.component.vue'), // Ajusta la ruta según la ubicación de tu componente
+     
+    },
+    
   ]
 })
 

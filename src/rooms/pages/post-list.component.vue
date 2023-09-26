@@ -94,12 +94,15 @@ export default {
               <div class="flex align-items-center gap-2 p-mt-2">
                 <pv-button icon="pi pi-phone" class="rounded-button-secondary" rounded outlined />
                 <pv-button icon="pi pi-heart" class="rounded-button-secondary" rounded outlined />
-                <pv-button
-                  icon="pi pi-chevron-right"
-                  class="button-secondary"
-                  iconPos="right"
-                  label="Saber más"
-                />
+                <router-link to="/details" custom v-slot="{ navigate, href }">
+            <pv-button
+              label="Saber más"
+              class="button-secondary"
+              icon="right"
+              :href="href"
+              @click="navigate"
+            />
+          </router-link>
               </div>
             </div>
           </div>
