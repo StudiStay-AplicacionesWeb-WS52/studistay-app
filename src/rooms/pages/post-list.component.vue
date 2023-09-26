@@ -12,7 +12,8 @@ export default {
           address: 'Av. La Paz 123',
           rating: 4,
           nearUniversity: 'UPC',
-          price: 10.2
+          price: 10.2,
+          photo: 'https://source.unsplash.com/random/500X500?rooms'
         },
         {
           id: 2,
@@ -21,7 +22,8 @@ export default {
           address: 'Av. La Marina 123',
           rating: 4,
           nearUniversity: 'UPC',
-          price: 10.2
+          price: 10.2,
+          photo: 'https://source.unsplash.com/random/500X500?rooms'
         },
         {
           id: 3,
@@ -31,7 +33,8 @@ export default {
           address: 'Av. Brasil 123',
           rating: 4,
           nearUniversity: 'UPC',
-          price: 10.2
+          price: 10.2,
+          photo: 'https://source.unsplash.com/random/500X500?rooms'
         }
       ]
     }
@@ -46,7 +49,7 @@ export default {
         <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
           <img
             class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round"
-            :src="`https://primefaces.org/cdn/primevue/images/product/bamboo-watch.jpg`"
+            :src="slotProps.data.photo"
             :alt="slotProps.data.name"
           />
           <div
