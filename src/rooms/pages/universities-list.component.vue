@@ -1,6 +1,4 @@
 <script>
-import {FilterMatchMode} from "primevue/api";
-
 export default {
 
   data() {
@@ -16,7 +14,7 @@ export default {
         {
           url: 'https://utp.hiringroom.com/data/accounts/utp/vacancies/eedd872335ccdbe3dedccf01195f021a.jpeg',
           initials: 'UTP',
-          name:'Universidad Tecnologias del Peru',
+          name:'Universidad Tecnológica del Perú',
           description: '8 sedes',
           type: 'Universidad',
         },
@@ -30,12 +28,12 @@ export default {
         {
           url: 'https://d9hhrg4mnvzow.cloudfront.net/puntoedu.pucp.edu.pe/se-transforma/07b57513-escudo_10ci0ch00000000000001o.jpg',
           initials: 'PUCP',
-          name:'Pontifica Universidad Catolica del Peru',
+          name:'Pontifica Universidad Católica del Perú',
           description: '5 sedes',
           type: 'Universidad',
         },
         {
-          url: 'https://scontent.flim30-1.fna.fbcdn.net/v/t1.6435-9/110336342_1452052368316746_8694120952381473913_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=174925&_nc_eui2=AeG8B6gAU76r6odpELTCWVgx2FW51NggjWHYVbnU2CCNYeedZ9dik_zYTfoFfSRczyF-kEQJrAjwPd3y-1XML_U9&_nc_ohc=JoX_JybodbQAX8VZnjf&_nc_ht=scontent.flim30-1.fna&oh=00_AfA9KnFHctUR_KwwUX38ghKW36O-RLd-ytcUu1U6j6To-Q&oe=6537205B',
+          url: 'https://media.discordapp.net/attachments/1146490170917535764/1166564014533390397/logo-upch-chatbot.png?ex=654af266&is=65387d66&hm=63d1220eaf3756f35fd470e455282d0af5e9fe5218b87bc9d3e809741059d9b3&=&width=550&height=550',
           initials: 'UPCH',
           name:'Universidad Peruana Cayetano Heredia',
           description: '5 sedes',
@@ -44,7 +42,7 @@ export default {
         {
           url: 'https://pbs.twimg.com/profile_images/1630555077223088129/u1QMGa8M_400x400.jpg',
           initials: 'UP',
-          name:'Universidad del Pacifico',
+          name:'Universidad del Pacífico',
           description: '5 sedes',
           type: 'Universidad',
         },

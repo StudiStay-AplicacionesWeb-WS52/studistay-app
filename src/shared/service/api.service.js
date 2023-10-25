@@ -1,34 +1,34 @@
 import axios from "axios";
 
 const http = axios.create({
-  baseURL: 'http://localhost:3000/api/v1/',
+  baseURL: `${
+    import.meta.env.VITE_ENV === 'prod'
+      ? 'https://studistay.onrender.com/api/v1'
+      : 'http://localhost:5000/api/v1'
+  }`,
   headers: {
     'Content-Type': 'application/json'
   }
 });
 
 export class StudiStayApiService {
-	getAll() {
-    return http.get('/tutorials');
+	getAllPosts() {
+    return http.get('/post');
   }
 
-  getById(id) {
-    return http.get(`/tutorials/${id}`);
+  getPostById(id) {
+    return http.get(`/post/${id}`);
   }
 
-  create(data) {
-    return http.post('/tutorials', data);
+  createPost(data) {
+    return http.post('/post', data);
   }
 
-  update(id, data) {
-    return http.put(`/tutorials/${id}`, data);
+  deletePost(id) {
+    return http.delete(`/post/${id}`);
   }
 
-  delete(id) {
-    return http.delete(`/tutorials/${id}`);
-  }
-
-  findByTitle(title) {
-    return http.get(`/tutorials?title=${title}`);
+  getAllUniversities() {
+    return http.get('/university');
   }
 }
