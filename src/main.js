@@ -27,6 +27,7 @@ import Tag from 'primevue/tag'
 import Card from 'primevue/card'
 import SplitButton from 'primevue/splitbutton'
 import DataView from 'primevue/dataview';
+import MultiSelect from 'primevue/multiselect';
 
 createApp(App)
     .use(router)
@@ -48,4 +49,5 @@ createApp(App)
     .component('pv-card', Card)
     .component('pv-splitbutton', SplitButton)
     .component('pv-dataview', DataView)
+    .component('pv-multiselect', MultiSelect)
     .mount('#app')
