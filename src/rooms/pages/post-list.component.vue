@@ -227,7 +227,9 @@ export default {
 
             <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
               <!-- PRECIO -->
-              <span class="text-2xl font-semibold title-primary">S/. {{ slotProps.data.price }}</span>
+              <span class="text-2xl font-semibold title-primary"
+                >S/. {{ slotProps.data.price }}</span
+              >
 
               <!-- BOTONES -->
               <div class="flex align-items-center gap-2 p-mt-2">
@@ -276,7 +278,7 @@ export default {
     class="p-fluid"
   >
     <!-- TITLE -->
-    <div class="field">
+    <div class="field mt-3 paragraph">
       <span class="p-float-label">
         <pv-input-text
           type="text"
@@ -287,12 +289,12 @@ export default {
           :class="{ 'p-invalid': submitted && !post.title }"
         />
         <label for="title">Título</label>
-        <small class="p-error" v-if="submitted && !post.title"> Title is required. </small>
+        <small class="p-error" v-if="submitted && !post.title">Ingresa un título</small>
       </span>
     </div>
 
     <!-- DESCRIPTION -->
-    <div class="field">
+    <div class="field paragraph">
       <span class="p-float-label">
         <pv-textarea
           id="description"
@@ -304,13 +306,13 @@ export default {
         />
         <label for="description">Descripción</label>
         <small class="p-error" v-if="submitted && !post.description">
-          Description is required.
+          Ingresa una descripción
         </small>
       </span>
     </div>
 
     <!-- ADDRESS -->
-    <div class="field">
+    <div class="field paragraph">
       <span class="p-float-label">
         <pv-input-text
           type="text"
@@ -321,12 +323,12 @@ export default {
           :class="{ 'p-invalid': submitted && !post.address }"
         />
         <label for="address">Dirección</label>
-        <small class="p-error" v-if="submitted && !post.address"> Address is required. </small>
+        <small class="p-error" v-if="submitted && !post.address">Ingresa la dirección</small>
       </span>
     </div>
 
     <!-- PRICE -->
-    <div class="field">
+    <div class="field paragraph">
       <span class="p-float-label">
         <pv-input-text
           id="price"
@@ -337,12 +339,12 @@ export default {
           :class="{ 'p-invalid': submitted && !post.price }"
         />
         <label for="price">Precio x hora</label>
-        <small class="p-error" v-if="submitted && !post.price"> Price is required. </small>
+        <small class="p-error" v-if="submitted && !post.price">Ingresa el precio</small>
       </span>
     </div>
 
     <!-- NEAREST UNIVERSITIES -->
-    <div class="field">
+    <div class="field paragraph">
       <span class="p-float-label">
         <pv-multiselect
           id="nearestUniversities"
@@ -365,13 +367,13 @@ export default {
         </pv-multiselect>
         <label for="nearestUniversities">Universidades cercanas</label>
         <small class="p-error" v-if="submitted && !post.nearestUniversities">
-          Nearest Universities is required.
+          Selecciona las universidades cercanas
         </small>
       </span>
     </div>
 
     <!-- IMAGE URL -->
-    <div class="field">
+    <div class="field paragraph">
       <span class="p-float-label">
         <pv-input-text
           type="text"
@@ -382,7 +384,7 @@ export default {
           :class="{ 'p-invalid': submitted && !post.imageUrl }"
         />
         <label for="imageUrl">URL de la foto</label>
-        <small class="p-error" v-if="submitted && !post.imageUrl"> Photo is required. </small>
+        <small class="p-error" v-if="submitted && !post.imageUrl">Ingresa una imagen</small>
       </span>
     </div>
 
