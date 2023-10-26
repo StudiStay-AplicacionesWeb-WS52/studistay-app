@@ -141,7 +141,7 @@ export default {
     confirmDeletePost(post) {
       this.post = post
       this.deletePostDialog = true
-    },
+    }
   }
 }
 </script>
@@ -208,7 +208,14 @@ export default {
               <div class="flex align-items-center gap-3">
                 <span class="flex align-items-center gap-2">
                   <i class="pi pi-building icon-secondary"></i>
-                  <span class="paragraph">Cerca a {{ JSON.parse(slotProps.data.nearestUniversities).map(u => u.initials).join(', ') }}</span>
+                  <span class="paragraph"
+                    >Cerca a
+                    {{
+                      JSON.parse(slotProps.data.nearestUniversities)
+                        .map((u) => u.initials)
+                        .join(', ')
+                    }}</span
+                  >
                 </span>
               </div>
 
@@ -220,7 +227,7 @@ export default {
 
             <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
               <!-- PRECIO -->
-              <span class="text-2xl font-semibold title-primary">${{ slotProps.data.price }}</span>
+              <span class="text-2xl font-semibold title-primary">S/. {{ slotProps.data.price }}</span>
 
               <!-- BOTONES -->
               <div class="flex align-items-center gap-2 p-mt-2">
@@ -239,11 +246,15 @@ export default {
                   @click="showPhone(slotProps.data)"
                 />
                 <pv-button icon="pi pi-heart" class="rounded-button-secondary" rounded outlined />
-                <router-link to="/details" custom v-slot="{ navigate, href }">
+                <router-link
+                  :to="{ name: 'postDetails', params: { postId: slotProps.data.id } }"
+                  custom
+                  v-slot="{ navigate, href }"
+                >
                   <pv-button
                     label="Saber más"
                     class="button-secondary"
-                    icon="right"
+                    icon="pi pi-angle-right"
                     :href="href"
                     @click="navigate"
                   />
@@ -265,7 +276,7 @@ export default {
     class="p-fluid"
   >
     <!-- TITLE -->
-    <div class="field mt-3">
+    <div class="field">
       <span class="p-float-label">
         <pv-input-text
           type="text"
@@ -343,7 +354,11 @@ export default {
         >
           <template #option="slotProps">
             <div class="flex align-items-center">
-              <img :src="slotProps.option.logoUrl" :alt="slotProps.option.initials" style="width: 18px; margin-right: 10px;" />
+              <img
+                :src="slotProps.option.logoUrl"
+                :alt="slotProps.option.initials"
+                style="width: 18px; margin-right: 10px"
+              />
               <div>{{ slotProps.option.name }}</div>
             </div>
           </template>
@@ -387,7 +402,6 @@ export default {
     </template>
   </pv-dialog>
 
-
   <!-- DIALOG PARA MOSTRAR EL NUMERO DE TELEFONO -->
   <pv-dialog
     v-model:visible="phoneDialog"
@@ -402,36 +416,35 @@ export default {
     </span>
   </pv-dialog>
 
-
   <!-- DIALOGO DE CONFIRMACION -->
   <pv-dialog
-      v-model:visible="deletePostDialog"
-      :style="{ width: '450px' }"
-      header="Confirm"
-      :modal="true"
-    >
-      <div class="confirmation-content">
-        <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
-        <span v-if="post">
-          ¿Estás seguro de eliminar el post <b>{{ post.title }}</b
-          >?
-        </span>
-      </div>
-      <template #footer>
-        <pv-button
-          :label="'No'.toUpperCase()"
-          icon="pi pi-times"
-          class="p-button-text"
-          @click="deletePostDialog = false"
-        />
-        <pv-button
-          :label="'Yes'.toUpperCase()"
-          icon="pi pi-check"
-          class="p-button-text"
-          @click="deletePost"
-        />
-      </template>
-    </pv-dialog>
+    v-model:visible="deletePostDialog"
+    :style="{ width: '450px' }"
+    header="Confirm"
+    :modal="true"
+  >
+    <div class="confirmation-content">
+      <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+      <span v-if="post">
+        ¿Estás seguro de eliminar el post <b>{{ post.title }}</b
+        >?
+      </span>
+    </div>
+    <template #footer>
+      <pv-button
+        :label="'No'.toUpperCase()"
+        icon="pi pi-times"
+        class="p-button-text"
+        @click="deletePostDialog = false"
+      />
+      <pv-button
+        :label="'Yes'.toUpperCase()"
+        icon="pi pi-check"
+        class="p-button-text"
+        @click="deletePost"
+      />
+    </template>
+  </pv-dialog>
 </template>
 
 <style>
