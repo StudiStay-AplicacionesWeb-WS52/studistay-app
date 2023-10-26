@@ -25,6 +25,11 @@ const router = createRouter({
     },
     //rutas lazy load
     {
+      path: '/post/:postId',
+      name: 'postDetails',
+      component: () => import('../rooms/pages/post-details.component.vue'),
+    },
+    {
       path: '/universities',
       name: 'universities',
       component: () => import('../rooms/pages/universities-list.component.vue')
@@ -34,13 +39,6 @@ const router = createRouter({
       name: 'profile',
       component: () => import('../rooms/pages/profile-view.component.vue')
     },
-    {
-      path: '/details',
-      name: 'details',
-      component: () => import('../rooms/pages/details.component.vue'), // Ajusta la ruta según la ubicación de tu componente
-     
-    },
-    
   ]
 })
 
