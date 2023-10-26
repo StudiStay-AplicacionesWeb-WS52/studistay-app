@@ -27,4 +27,8 @@ export class StudiStayApiService {
   getAllUniversities() {
     return http.get('/university')
   }
+
+  createReservation(data) {
+    return http.post('/reservation', data)
+  }
 }
