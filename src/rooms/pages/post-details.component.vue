@@ -1,9 +1,11 @@
 <script>
 import { StudiStayApiService } from '../../shared/service/api.service'
+import moment from 'moment'
 
 export default {
   data() {
     return {
+      today: new Date(),
       isOpenReservationDialog: false,
       submitted: false,
       post: {},
@@ -85,7 +87,7 @@ export default {
             checkOutDate: this.reservation.checkOutDate,
             paymentMethod: this.reservation.paymentMethod.name,
             postId: this.post.id,
-            userId: 1,
+            userId: 1
           })
           .then((res) => {
             this.$toast.add({
@@ -108,6 +110,30 @@ export default {
         this.isOpenReservationDialog = false
         this.reservation = {}
       }
+    },
+    getReservationData() {
+      const { checkInDate, checkOutDate } = this.reservation
+      const checkIn = moment(checkInDate)
+      const checkOut = moment(checkOutDate)
+
+      const duration = moment.duration(checkOut?.diff(checkIn))
+      const timeDifference = `${duration.days()} días y ${duration.hours()} horas`
+
+      //obtiene el monto total (precio x horas totales)
+      const totalPrice = checkInDate && checkOutDate ? (this.post.price * duration.asHours()).toFixed(2) : 0
+
+      return {
+        timeDifference,
+        totalPrice
+      }
+    },
+    checkOutIsBeforeCheckIn() {
+      if (this.reservation.checkInDate && this.reservation.checkOutDate) {
+        const checkIn = moment(this.reservation.checkInDate)
+        const checkOut = moment(this.reservation.checkOutDate)
+        return checkOut.isSameOrBefore(checkIn)
+      }
+      return false
     }
   }
 }
@@ -115,13 +141,15 @@ export default {
 
 <template>
   <div class="details-container border-1 paragraph">
-    <h1 class="text-3xl font-bold text-900 title-secondary text-center">{{ post.title }}</h1>
+    <div class="text-center">
+      <h1 class="text-3xl font-bold text-900 title-secondary">{{ post.title }}</h1>
+    </div>
     <div class="contenedor">
       <!-- IMAGEN -->
       <div>
         <img
-          src="https://media.discordapp.net/attachments/1146490170917535764/1156281920133546064/image1.jpg?ex=651466f4&is=65131574&hm=cf228775b07cc483c4fc162ffaf858239a18a1b16581817a87e87b399270355c&=&width=720&height=480"
-          alt="Habitación para una persona"
+          :src="post.imageUrl"
+          :alt="post.title"
           class="habitacion"
         />
       </div>
@@ -189,55 +217,64 @@ export default {
     class="p-fluid"
   >
     <!-- CHECKIN -->
-    <div class="field mt-3">
+    <div class="field mt-3 paragraph">
       <span class="p-float-label">
         <pv-calendar
           id="checkInDate"
           v-model="reservation.checkInDate"
           showTime
-          showIcon 
+          showIcon
           hourFormat="12"
+          :minDate="today"
           :class="{ 'p-invalid': submitted && !reservation.checkInDate }"
         />
         <label for="checkInDate">Check in</label>
         <small class="p-error" v-if="submitted && !reservation.checkInDate">
-          Check in date is required.
+          La fecha del check-in es necesaria
         </small>
       </span>
     </div>
 
     <!-- CHECKOUT -->
-    <div class="field">
+    <div class="field paragraph">
       <span class="p-float-label">
         <pv-calendar
           id="checkOutDate"
           v-model="reservation.checkOutDate"
           showTime
-          showIcon 
+          showIcon
           hourFormat="12"
+          :minDate="today"
           :class="{ 'p-invalid': submitted && !reservation.checkOutDate }"
         />
         <label for="checkOutDate">Check out</label>
         <small class="p-error" v-if="submitted && !reservation.checkOutDate">
-          Check out date is required.
+          La fecha del check-out es necesaria
+        </small>
+        <small class="p-error" v-if="checkOutIsBeforeCheckIn()">
+          La fecha de check-out no puede ser igual o anterior a la fecha de check-in
         </small>
       </span>
     </div>
 
     <!-- PAYMENT METHOD -->
-    <div class="field">
+    <div class="field paragraph">
       <span class="p-float-label">
         <pv-dropdown
           id="paymentMethod"
           v-model="reservation.paymentMethod"
           :options="paymentMethods"
           optionLabel="name"
-          placeholder="Selecciona un método de pago" 
+          placeholder="Selecciona un método de pago"
           :class="{ 'p-invalid': submitted && !reservation.paymentMethod }"
         >
           <template #value="slotProps">
             <div v-if="slotProps.value" class="flex align-items-center">
-              <img :src="slotProps.value.logoUrl" :alt="slotProps.value.name" style="width: 18px; margin-right: 10px" />
+              <img
+                :src="slotProps.value.logoUrl"
+                :alt="slotProps.value.name"
+                style="width: 18px; margin-right: 10px"
+              />
               <div>{{ slotProps.value.name }}</div>
             </div>
             <span v-else>
@@ -257,10 +294,16 @@ export default {
         </pv-dropdown>
         <label for="paymentMethod">Método de pago</label>
         <small class="p-error" v-if="submitted && !reservation.paymentMethod">
-          Payment method is required.
+          Seleccione un método de pago
         </small>
       </span>
     </div>
+
+    <div class="field paragraph">
+      <b>Tiempo de estadía:</b> {{ getReservationData().timeDifference }}
+    </div>
+
+    <div class="field paragraph"><b>Monto total:</b> S/.{{ getReservationData().totalPrice }}</div>
 
     <template #footer>
       <pv-button
