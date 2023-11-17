@@ -9,24 +9,24 @@ export default {
   <br><br>
   <div class="card">
     <pv-card>
-      <template #title> Iniciar Sesión </template>
+      <template #title> {{$t('login-view.login')}} </template>
       <template #content>
         <p>
-          Email:
+          {{$t('login-view.email')}}
         </p>
         <div class="card flex flex-wrap justify-content-center gap-3">
           <span class="p-input-icon-left">
             <i class="pi pi-envelope"/>
-            <pv-input-text placeholder="Ingresa tu Email"></pv-input-text>
+            <pv-input-text :placeholder="$t('login-view.enter-email')"></pv-input-text>
           </span>
         </div>
         <p>
-          Contraseña:
+          {{$t('login-view.password')}}
         </p>
         <div class="card flex flex-wrap justify-content-center gap-3">
           <span class="p-input-icon-left">
             <i class="pi pi-lock"/>
-            <pv-input-text placeholder="Ingresa tu contraseña"></pv-input-text>
+            <pv-input-text :placeholder="$t('login-view.enter-password')"></pv-input-text>
           </span>
         </div>
 
@@ -35,7 +35,7 @@ export default {
         <div class="card flex justify-content-center">
           <router-link to="/posts" custom v-slot="{ navigate, href }">
             <pv-button
-                label="Ingresar"
+                :label="$t('login-view.enter-btn')"
                 class="button-primary"
                 :href="href"
                 @click="navigate"

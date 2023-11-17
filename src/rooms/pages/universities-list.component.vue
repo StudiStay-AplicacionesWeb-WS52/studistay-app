@@ -78,10 +78,10 @@ export default {
   <pv-dataview :filters="filters" :value="cardsData">
     <template #header>
       <div class="md:flex row">
-        <span class="paragraph font-bold" style="text-align: left; font-size: 40px;"> Universidades</span>
+        <span class="paragraph font-bold" style="text-align: left; font-size: 40px;"> {{$t('universities-view.universities')}}</span>
         <span class="p-input-icon-left" style="margin-left: auto;">
         <i class="pi pi-search"></i>
-        <pv-input-text style="border-radius: 15px; width: 320px;" v-model="filters['global'].value" placeholder="Buscar universidades o institutos..."></pv-input-text>
+        <pv-input-text style="border-radius: 15px; width: 320px;" v-model="filters['global'].value" :placeholder="$t('universities-view.search-university')"></pv-input-text>
       </span>
       </div>
     </template>
@@ -100,7 +100,7 @@ export default {
           <div style="text-align: right;">
             <router-link to="/posts">
               <pv-button rectangle :disabled="false" class="font-normal button-secondary" style=" font-size: 18px; border-radius: 20px; padding: 8px 12px;">
-                Ver habitaciones<i class="pi pi-home" style="margin-left: 5px;"></i>
+                {{$t('universities-view.look-rooms')}}<i class="pi pi-home" style="margin-left: 5px;"></i>
               </pv-button>
             </router-link>
           </div>
