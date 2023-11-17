@@ -1,6 +1,11 @@
 <script>
+import LanguageComponent from '@/login/components/language.component.vue';
+
 export default {
   name: 'header-section',
+  components: {
+    LanguageComponent,
+  },
   data() {
     return {
       items: [
@@ -28,7 +33,7 @@ export default {
         <div class="flex-column">
           <router-link to="/posts" custom v-slot="{ navigate, href }">
             <pv-button
-              label="Posts"
+              :label="$t('home-toolbar.post')"
               class="button-primary"
               icon="pi pi-list"
               :href="href"
@@ -38,7 +43,7 @@ export default {
 
           <router-link to="/universities" custom v-slot="{ navigate, href }">
             <pv-button
-              label="Universidades"
+              :label="$t('home-toolbar.universities')"
               class="button-primary"
               icon="pi pi-building"
               :href="href"
@@ -48,7 +53,7 @@ export default {
 
           <router-link to="/profile" custom v-slot="{ navigate, href }">
             <pv-button
-              label="Perfil"
+              :label="$t('home-toolbar.profile')"
               class="button-primary"
               icon="pi pi-user"
               :href="href"
@@ -56,6 +61,7 @@ export default {
             />
           </router-link>
         </div>
+        <language-component></language-component>
       </template>
     </pv-toolbar>
   </header>

@@ -152,7 +152,7 @@ export default {
     <!-- BOTON AGREGAR -->
     <template #start>
       <pv-button
-        label="Crear post"
+        :label="$t('posts-view.create-post')"
         icon="pi pi-plus"
         class="p-button-success mr-2"
         @click="openNew"
@@ -165,7 +165,7 @@ export default {
         <pv-input-text
           style="border-radius: 15px; width: 320px"
           v-model="filters['global'].value"
-          placeholder="Buscar posts..."
+          :placeholder="$t('posts-view.search-post')"
         ></pv-input-text>
       </span>
     </template>
@@ -208,8 +208,7 @@ export default {
               <div class="flex align-items-center gap-3">
                 <span class="flex align-items-center gap-2">
                   <i class="pi pi-building icon-secondary"></i>
-                  <span class="paragraph"
-                    >Cerca a
+                  <span class="paragraph">  {{ $t('posts-view.near-to') }}
                     {{
                       JSON.parse(slotProps.data.nearestUniversities)
                         .map((u) => u.initials)
@@ -304,9 +303,9 @@ export default {
           cols="20"
           :class="{ 'p-invalid': submitted && !post.description }"
         />
-        <label for="description">Descripción</label>
+        <label for="description">{{$('post-details.description')}} </label>
         <small class="p-error" v-if="submitted && !post.description">
-          Ingresa una descripción
+          {{$('post-details.enter-description')}}
         </small>
       </span>
     </div>

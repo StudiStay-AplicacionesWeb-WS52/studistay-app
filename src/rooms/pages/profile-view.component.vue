@@ -1,7 +1,7 @@
 <template>
   <div class="perfil-section">
     <div class="perfil-title">
-      <h1>Mi Perfil</h1>
+      <h1>{{$t('profile-view.profile')}}</h1>
     </div>
 
     <div class="perfil-container">
@@ -20,7 +20,7 @@
           <div class="perfil-info">
             
             <div class="p-inputgroup flex-1">
-              <p>Nombres:</p>
+              <p>{{$t('profile-view.names')}}</p>
               <div class="container-input">
                 <span span class="p-inputgroup-addon">
                   <i class="pi pi-user"></i>
@@ -30,7 +30,7 @@
             </div>
 
             <div class="p-inputgroup flex-1">
-              <p>Email:</p>
+              <p>{{$t('profile-view.email')}}</p>
                <div class="container-input">
                 <span class="p-inputgroup-addon">
                   <i class="pi pi-envelope"></i>
@@ -40,7 +40,7 @@
             </div>
 
             <div class="p-inputgroup flex-1">
-              <p>Nro. de teléfono:</p>
+              <p>{{$t('profile-view.phone')}}</p>
                <div class="container-input">
                 <span class="p-inputgroup-addon">
                   <i class="pi pi-phone"></i>
@@ -50,7 +50,7 @@
             </div>
 
             <div class="p-inputgroup flex-1">
-              <p>Contraseña:</p>
+              <p>{{$t('profile-view.password')}}</p>
               <div class="container-input">
                 <span class="p-inputgroup-addon">
                   <i class="pi pi-lock"></i>
@@ -62,8 +62,8 @@
         </div>
 
         <div class="perfil-buttons">
-          <MyButton label="Guardar cambios" />
-          <MyButton label="Eliminar cuenta" severity="danger" />
+          <MyButton :label="$t('profile-view.save-changes')" />
+          <MyButton :label="$t('profile-view.delete-account')" severity="danger" />
         </div>
       </div>
     </div>

@@ -9,42 +9,42 @@ export default {
   <br><br>
   <div class="card">
     <pv-card>
-      <template #title> Registrarse </template>
+      <template #title> {{$t('register-view.register')}} </template>
       <template #content>
         <p>
-          Nombres:
+          {{$t('register-view.names')}}
         </p>
         <div class="card flex flex-wrap justify-content-center gap-3">
           <span class="p-input-icon-left">
             <i class="pi pi-user"/>
-            <pv-input-text placeholder="Ingresa tus nombres"></pv-input-text>
+            <pv-input-text :placeholder="$t('register-view.enter-names')" ></pv-input-text>
           </span>
         </div>
         <p>
-          Email:
+          {{$t('register-view.email')}}
         </p>
         <div class="card flex flex-wrap justify-content-center gap-3">
           <span class="p-input-icon-left">
             <i class="pi pi-envelope"/>
-            <pv-input-text placeholder="Ingresa tu Email"></pv-input-text>
+            <pv-input-text :placeholder="$t('register-view.enter-email')"></pv-input-text>
           </span>
         </div>
         <p>
-          Número de Teléfono:
+          {{$t('register-view.phone')}}
         </p>
         <div class="card flex flex-wrap justify-content-center gap-3">
           <span class="p-input-icon-left">
             <i class="pi pi-phone"/>
-            <pv-input-text placeholder="Ingresa tu teléfono"></pv-input-text>
+            <pv-input-text :placeholder="$t('register-view.enter-phone')"></pv-input-text>
           </span>
         </div>
         <p>
-          Contraseña:
+          {{$t('register-view.password')}}
         </p>
         <div class="card flex flex-wrap justify-content-center gap-3">
           <span class="p-input-icon-left">
             <i class="pi pi-lock"/>
-            <pv-input-text placeholder="Ingresa tu contraseña"></pv-input-text>
+            <pv-input-text :placeholder="$t('register-view.enter-password')"></pv-input-text>
           </span>
         </div>
 
@@ -53,7 +53,7 @@ export default {
         <div class="card flex justify-content-center">
           <router-link to="/" custom v-slot="{ navigate, href }">
             <pv-button
-                label="Registrarme"
+                :label="$t('register-view.register-btn')"
                 class="button-primary"
                 :href="href"
                 @click="navigate"
