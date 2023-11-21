@@ -57,13 +57,14 @@ export default {
       .then((response) => {
         this.posts = response.data
       })
+      // eslint-disable-next-line no-unused-vars
       .catch((e) => {
-        this.$toast.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: `Error al obtener posts: ${e.message}`,
-          life: 3000
-        })
+        // this.$toast.add({
+        //   severity: 'error',
+        //   summary: 'Error',
+        //   detail: `Error al obtener posts: ${e.message}`,
+        //   life: 3000
+        // })
       })
   },
   methods: {
