@@ -29,8 +29,14 @@ import SplitButton from 'primevue/splitbutton'
 import DataView from 'primevue/dataview';
 import MultiSelect from 'primevue/multiselect';
 import Calendar from 'primevue/calendar'
+import Menubar from 'primevue/menubar';
+
+
+//i18n
+import i18n from "@/i18n";
 
 createApp(App)
+    .use(i18n)
     .use(router)
     .use(PrimeVue, { ripple: true })
     .use(ToastService)
@@ -52,4 +58,6 @@ createApp(App)
     .component('pv-dataview', DataView)
     .component('pv-multiselect', MultiSelect)
     .component('pv-calendar', Calendar)
+    .component('pv-menubar', Menubar)
     .mount('#app')
+    
