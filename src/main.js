@@ -8,7 +8,7 @@ import PrimeVue from 'primevue/config'
 import 'primevue/resources/themes/md-light-indigo/theme.css'
 import 'primevue/resources/primevue.min.css'
 import 'primeicons/primeicons.css'
-import "primeflex/primeflex.css";
+import 'primeflex/primeflex.css'
 
 //components
 import DataTable from 'primevue/datatable'
@@ -26,38 +26,45 @@ import Menu from 'primevue/menu'
 import Tag from 'primevue/tag'
 import Card from 'primevue/card'
 import SplitButton from 'primevue/splitbutton'
-import DataView from 'primevue/dataview';
-import MultiSelect from 'primevue/multiselect';
+import DataView from 'primevue/dataview'
+import MultiSelect from 'primevue/multiselect'
 import Calendar from 'primevue/calendar'
-import Menubar from 'primevue/menubar';
+import Menubar from 'primevue/menubar'
 
+//services
+import { SecurityApiService } from './security/service/security.service'
+import { RoomsApiService } from './rooms/service/rooms.service'
 
 //i18n
-import i18n from "@/i18n";
+import i18n from '@/i18n'
 
-createApp(App)
-    .use(i18n)
-    .use(router)
-    .use(PrimeVue, { ripple: true })
-    .use(ToastService)
-    .component('pv-data-table', DataTable)
-    .component('pv-column', Column)
-    .component('pv-toolbar', Toolbar)
-    .component('pv-input-text', InputText)
-    .component('pv-textarea', Textarea)
-    .component('pv-button', Button)
-    .component('pv-row', Row)
-    .component('pv-sidebar', Sidebar)
-    .component('pv-menu', Menu)
-    .component('pv-dialog', Dialog)
-    .component('pv-toast', Toast)
-    .component('pv-dropdown', Dropdown)
-    .component('pv-tag', Tag)
-    .component('pv-card', Card)
-    .component('pv-splitbutton', SplitButton)
-    .component('pv-dataview', DataView)
-    .component('pv-multiselect', MultiSelect)
-    .component('pv-calendar', Calendar)
-    .component('pv-menubar', Menubar)
-    .mount('#app')
-    
+const app = createApp(App)
+  .use(i18n)
+  .use(router)
+  .use(PrimeVue, { ripple: true })
+  .use(ToastService)
+  .component('pv-data-table', DataTable)
+  .component('pv-column', Column)
+  .component('pv-toolbar', Toolbar)
+  .component('pv-input-text', InputText)
+  .component('pv-textarea', Textarea)
+  .component('pv-button', Button)
+  .component('pv-row', Row)
+  .component('pv-sidebar', Sidebar)
+  .component('pv-menu', Menu)
+  .component('pv-dialog', Dialog)
+  .component('pv-toast', Toast)
+  .component('pv-dropdown', Dropdown)
+  .component('pv-tag', Tag)
+  .component('pv-card', Card)
+  .component('pv-splitbutton', SplitButton)
+  .component('pv-dataview', DataView)
+  .component('pv-multiselect', MultiSelect)
+  .component('pv-calendar', Calendar)
+  .component('pv-menubar', Menubar)
+
+//global services
+app.config.globalProperties.$securityApiService = new SecurityApiService()
+app.config.globalProperties.$roomsApiService = new RoomsApiService()
+
+app.mount('#app')

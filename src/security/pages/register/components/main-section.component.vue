@@ -1,7 +1,7 @@
 <script>
 
-import ToolbarSection from "@/register/components/toolbar-section.component.vue";
-import RegisterCard from "@/register/components/register-card.component.vue";
+import ToolbarSection from "@/security/pages/register/components/toolbar-section.component.vue";
+import RegisterCard from "@/security/pages/register/components/register-card.component.vue";
 
 export default {
   name: "register-section",

@@ -1,5 +1,5 @@
 <script>
-import LanguageComponent from '@/login/components/language.component.vue';
+import LanguageComponent from '@/security/pages/login/components/language.component.vue';
 
 export default {
   name: 'toolbar-section',
