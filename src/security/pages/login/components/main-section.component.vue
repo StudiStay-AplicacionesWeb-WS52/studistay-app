@@ -1,7 +1,7 @@
 <script>
 
-import LoginCard from "@/login/components/login-card.component.vue";
-import ToolbarSection from "@/login/components/toolbar-section.component.vue";
+import LoginCard from "./login-card.component.vue";
+import ToolbarSection from "./toolbar-section.component.vue";
 export default {
   name: "login-section",
   components: {LoginCard, ToolbarSection}

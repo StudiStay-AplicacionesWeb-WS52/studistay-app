@@ -1,13 +1,6 @@
-import axios from 'axios'
+import { http } from '../../shared/config/http.config'
 
-const http = axios.create({
-  baseURL: 'https://studistay.onrender.com/api/v1',
-  headers: {
-    'Content-Type': 'application/json'
-  }
-})
-
-export class StudiStayApiService {
+export class RoomsApiService {
   getAllPosts() {
     return http.get('/post')
   }

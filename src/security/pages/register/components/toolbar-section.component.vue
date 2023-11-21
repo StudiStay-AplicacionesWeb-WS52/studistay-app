@@ -1,5 +1,5 @@
 <script>
-import LanguageComponent from '@/login/components/language.component.vue';
+import LanguageComponent from '@/security/pages/login/components/language.component.vue';
 
 export default {
   name: 'toolbar-section',
@@ -14,7 +14,7 @@ export default {
     <pv-toolbar class="background-primary">
       <!-- LOGO -->
       <template #start>
-        <img alt="logo" src="../../assets/images/logo.jpg" height="40" class="mr-2" />
+        <img alt="logo" src="../../../../assets/images/logo.jpg" height="40" class="mr-2" />
         <h3 class="title-white">StudiStay</h3>
       </template>
 

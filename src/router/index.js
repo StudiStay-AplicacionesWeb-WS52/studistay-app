@@ -1,13 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import PostsView from '../rooms/pages/post-list.component.vue'
-import LoginView from '../login/components/main-section.component.vue'
-import RegisterView from '../register/components/main-section.component.vue'
+import PostsView from '@/rooms/pages/post-list.component.vue'
+import LoginView from '@/security/pages/login/components/main-section.component.vue'
+import RegisterView from '@/security/pages/register/components/main-section.component.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
+      name: 'login',
+      component: LoginView
+    },
+
+    {
+      path: '/login',
       name: 'login',
       component: LoginView
     },
@@ -41,5 +47,19 @@ const router = createRouter({
     },
   ]
 })
+
+//verifica si el usuario esta autenticado para acceder a las rutas
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = localStorage.getItem('user-token');
+  const publicPages = ['/login', '/register']; //rutas que no requieren autenticación
+  const authRequired = !publicPages.includes(to.path);
+
+  //redirecciona a la pagina de login si no esta autenticado
+  if (authRequired && !isAuthenticated) {
+    return next('/login');
+  }
+
+  next();
+});
 
 export default router
