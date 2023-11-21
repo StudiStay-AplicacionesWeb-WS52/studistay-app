@@ -1,6 +1,4 @@
 <script>
-import { StudiStayApiService } from '../../shared/service/api.service'
-
 export default {
   name: 'post-list',
 
@@ -13,15 +11,13 @@ export default {
       phoneNumberToShow: '',
       post: {},
       submitted: false,
-      postService: null,
       filters: {},
       universities: []
     }
   },
   created() {
     this.initFilters()
-    this.postService = new StudiStayApiService()
-    this.postService
+    this.$roomsApiService
       .getAllUniversities()
       .then((response) => {
         this.universities = response.data
@@ -34,7 +30,7 @@ export default {
           life: 3000
         })
       })
-    this.postService
+    this.$roomsApiService
       .getAllPosts()
       .then((response) => {
         this.posts = response.data
@@ -80,7 +76,7 @@ export default {
     savePost() {
       this.submitted = true
       if (this.post.title.trim()) {
-        this.postService
+        this.$roomsApiService
           .createPost({
             title: this.post.title,
             description: this.post.description,
@@ -113,7 +109,7 @@ export default {
       }
     },
     deletePost() {
-      this.postService.deletePost(this.post.id).then((res) => {
+      this.$roomsApiService.deletePost(this.post.id).then((res) => {
         this.posts = this.posts.filter((p) => p.id !== this.post.id)
         this.deletePostDialog = false
         this.post = {}

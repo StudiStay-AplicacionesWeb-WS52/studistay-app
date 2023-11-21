@@ -1,5 +1,4 @@
 <script>
-import { StudiStayApiService } from '../../shared/service/api.service'
 import moment from 'moment'
 
 export default {
@@ -40,8 +39,7 @@ export default {
   },
   created() {
     const postIdParam = this.$route.params.postId
-    this.postService = new StudiStayApiService()
-    this.postService
+    this.$roomsApiService
       .getPostById(postIdParam)
       .then((response) => {
         this.post = response.data
@@ -54,7 +52,7 @@ export default {
           life: 3000
         })
       })
-    this.postService
+    this.$roomsApiService
       .getAllPosts()
       .then((response) => {
         this.posts = response.data
@@ -81,7 +79,7 @@ export default {
     saveReservation() {
       this.submitted = true
       if (this.reservation.checkInDate) {
-        this.postService
+        this.$roomsApiService
           .createReservation({
             checkInDate: this.reservation.checkInDate,
             checkOutDate: this.reservation.checkOutDate,
