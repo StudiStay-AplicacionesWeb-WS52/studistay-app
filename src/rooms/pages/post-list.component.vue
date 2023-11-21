@@ -40,12 +40,12 @@ export default {
         this.posts = response.data
       })
       .catch((e) => {
-        this.$toast.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: `Error al obtener posts: ${e.message}`,
-          life: 3000
-        })
+      //  this.$toast.add({
+      //    severity: 'error',
+      //    summary: 'Error',
+      //    detail: `Error al obtener posts: ${e.message}`,
+      //    life: 3000
+      //  })
       })
   },
 
