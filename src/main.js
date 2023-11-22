@@ -34,6 +34,7 @@ import Menubar from 'primevue/menubar'
 //services
 import { SecurityApiService } from './security/service/security.service'
 import { RoomsApiService } from './rooms/service/rooms.service'
+import { UserApiService } from './rooms/service/user.service'
 
 //i18n
 import i18n from '@/i18n'
@@ -66,5 +67,6 @@ const app = createApp(App)
 //global services
 app.config.globalProperties.$securityApiService = new SecurityApiService()
 app.config.globalProperties.$roomsApiService = new RoomsApiService()
+app.config.globalProperties.$userApiService = new UserApiService()
 
 app.mount('#app')

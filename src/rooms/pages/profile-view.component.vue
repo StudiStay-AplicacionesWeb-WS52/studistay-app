@@ -25,7 +25,7 @@
                 <span span class="p-inputgroup-addon">
                   <i class="pi pi-user"></i>
                 </span>
-                <InputText class="input-text" placeholder="Nombres" :value="userData.nombres" />
+                <InputText class="input-text" placeholder="Nombres" v-model="userData.nombres" />
               </div>
             </div>
 
@@ -35,7 +35,7 @@
                 <span class="p-inputgroup-addon">
                   <i class="pi pi-envelope"></i>
                 </span>
-                <InputText class="input-text" placeholder="Email" :value="userData.email" />
+                <InputText class="input-text" placeholder="Email" v-model="userData.email" />
               </div>
             </div>
 
@@ -45,7 +45,7 @@
                 <span class="p-inputgroup-addon">
                   <i class="pi pi-phone"></i>
                 </span>
-                <InputText class="input-text" placeholder="Telefono" :value="userData.phone" />
+                <InputText class="input-text" placeholder="Telefono" v-model="userData.phone" />
               </div>
             </div>
 
@@ -55,15 +55,15 @@
                 <span class="p-inputgroup-addon">
                   <i class="pi pi-lock"></i>
                 </span>
-                <InputText class="input-text" type="password" placeholder="Contraseña" :value="userData.password" />
+                <InputText class="input-text" type="password" placeholder="Contraseña" v-model="userData.password" />
               </div>      
             </div>
           </div>
         </div>
 
         <div class="perfil-buttons">
-          <MyButton :label="$t('profile-view.save-changes')" />
-          <MyButton :label="$t('profile-view.delete-account')" severity="danger" />
+          <MyButton :label="$t('profile-view.save-changes')" @click="updateUserProfile" />
+          <MyButton :label="$t('profile-view.delete-account')" severity="danger" @click="deleteUserProfile" />
         </div>
       </div>
     </div>
@@ -82,14 +82,106 @@ export default {
   name: "profile-content",
   data() {
     return {
+      user: {},
       userData: {
-        nombres: "Seele Vollerei",
-        email: "svollerei@gmail.com",
+        nombres: "User Name",
+        email: "user_example@gmail.com",
         phone: "987654321",
         password: "mysecretpassword",
-        imagen: "https://cdn.donmai.us/sample/4d/d5/__seele_vollerei_honkai_and_1_more_drawn_by_qingxiao_kiyokiyo__sample-4dd517bc6a4218b771aead3433ff52ae.jpg",
+        imagen: "https://cdn.discordapp.com/attachments/1151660063606448158/1176801890676256830/4203a57a78f6f1b1cc8ce5750f614656.png",
       },
     };
+  },
+  methods: {
+    async updateUserProfile() {
+      try {
+        //Actualizar datos del usuario
+        const userUpdated = {
+          fullName: this.userData.nombres,
+          email: this.userData.email,
+          phone: this.userData.phone,
+          imageUrl: this.userData.imagen,
+        };
+
+        //Apunto de enviar datos del usuario
+        console.log("A punto de actualizar el usuario");
+        console.log(userUpdated);
+        
+        //Enviar datos del usuario al backend
+        const response = await this.$userApiService.updateUserById(this.user.id, userUpdated);
+        console.log(response);
+
+        this.$toast.add({
+              severity: 'success',
+              summary: 'Successful',
+              detail: 'User updated',
+              life: 3000
+            })
+
+        console.log("Update user profile");
+      } catch (error) {
+        console.log(error);
+         this.$toast.add({
+           severity: 'error',
+           summary: 'Error',
+           detail: `Error: ${error.response.data.message}`,
+           life: 3000
+         })
+      }
+    },
+    async deleteUserProfile() {
+      try {
+        //Eliminar datos del usuario
+        console.log("A punto de eliminar el usuario");
+        const response = await this.$userApiService.deleteUserById(this.user.id);
+        console.log(response);
+        console.log("Delete user profile");
+
+        this.$toast.add({
+              severity: 'success',
+              summary: 'Successful',
+              detail: 'User deleted',
+              life: 3000
+            })
+
+        //Eliminar token y usuario del localStorage
+        localStorage.removeItem('user-token')
+        localStorage.removeItem('user')
+        this.$router.push('/login')
+
+      } catch (error) {
+        console.log(error);
+        this.$toast.add({
+           severity: 'error',
+           summary: 'Error',
+           detail: `Error: ${error.response.data.message}`,
+           life: 3000
+         })
+      }
+    },
+  },
+  async created() {
+    try {
+      //Obtener datos del usuario
+      const userLocal = localStorage.getItem("user");
+      const userObj = JSON.parse(userLocal);
+
+      // Cargar datos del usuario
+      const response = await this.$userApiService.getUserById(userObj.id);
+      this.user = response.data;
+
+      console.log("User loaded");
+      console.log(this.user);
+
+      //Asignar datos del usuario a userData
+      this.userData.nombres = this.user.fullName;
+      this.userData.email = this.user.email;
+      this.userData.phone = this.user.phone;
+      this.userData.imagen = this.user.imageUrl;
+
+    } catch (error) {
+      console.log(error);
+    }
   },
 };
 </script>

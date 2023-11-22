@@ -15,6 +15,13 @@ export default {
         }
       ]
     }
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem('user-token')
+      localStorage.removeItem('user')
+      this.$router.push('/login')
+    }
   }
 }
 </script>
@@ -60,6 +67,14 @@ export default {
               @click="navigate"
             />
           </router-link>
+
+          <pv-button
+            :label="$t('home-toolbar.logout')"
+            class="button-primary"
+            icon="pi pi-sign-out"
+            @click="logout"
+          />
+
         </div>
         <language-component></language-component>
       </template>

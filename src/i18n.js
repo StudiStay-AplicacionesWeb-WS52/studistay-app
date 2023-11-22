@@ -16,7 +16,8 @@ const i18n = createI18n({
             "home-toolbar": {
                 "post": "Publicaciones",
                 "universities": "Universidades",
-                "profile": "Perfil"
+                "profile": "Perfil",
+                "logout": "Cerrar sesión"
             },
             
             "login-view": {
@@ -112,7 +113,8 @@ const i18n = createI18n({
             "home-toolbar": {
                 "post": "Posts",
                 "universities": "Universities",
-                "profile": "Profile"
+                "profile": "Profile",
+                "logout": "Log out"
             },
             
             "login-view": {

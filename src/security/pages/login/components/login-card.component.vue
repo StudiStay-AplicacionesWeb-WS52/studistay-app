@@ -4,7 +4,14 @@ export default {
   data() {
     return {
       email: '',
-      password: ''
+      password: '',
+      user: {
+        id: '',
+        fullName: '',
+        email: '',
+        imgUrl: '',
+        role: '',
+      }
     }
   },
   methods: {
@@ -15,7 +22,21 @@ export default {
           password: this.password
         })
         .then((res) => {
+          console.log(res)
+          console.log(res.data)
           localStorage.setItem('user-token', res.data.token) //guarda el token
+
+          //Guarda la información del usuario
+          this.user.id = res.data.id
+          this.user.email = res.data.email
+          this.user.fullName = res.data.fullName
+          this.user.imgUrl = res.data.imageUrl
+          this.user.role = res.data.role
+
+          console.log('user info:')
+          console.log(this.user)
+
+          localStorage.setItem('user', JSON.stringify(this.user)) //guarda el usuario
           this.$router.push('/posts') //redirige a /posts
         })
         .catch((err) => {
