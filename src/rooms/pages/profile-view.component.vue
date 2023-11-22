@@ -1,7 +1,7 @@
 <template>
   <div class="perfil-section">
     <div class="perfil-title">
-      <h1>{{$t('profile-view.profile')}}</h1>
+      <span class="paragraph font-bold" style="text-align: left; font-size: 40px;"> Perfil</span>
     </div>
 
     <div class="perfil-container">
@@ -9,7 +9,7 @@
         <div class="perfil-img">
           <div class="imagen-center">
             <img
-              :src="userData.imagen"
+              :src="userData.imageUrl"
               alt="Avatar"
               class="avatar"
             />
@@ -20,50 +20,55 @@
           <div class="perfil-info">
             
             <div class="p-inputgroup flex-1">
-              <p>{{$t('profile-view.names')}}</p>
+              <p class="paragraph">{{$t('profile-view.names')}}</p>
               <div class="container-input">
                 <span span class="p-inputgroup-addon">
                   <i class="pi pi-user"></i>
                 </span>
-                <InputText class="input-text" placeholder="Nombres" :value="userData.nombres" />
+                <InputText class="input-text" placeholder="Nombres" :value="userData.fullName" :readonly="true" />
               </div>
             </div>
 
             <div class="p-inputgroup flex-1">
-              <p>{{$t('profile-view.email')}}</p>
+              <p class="paragraph">{{$t('profile-view.email')}}</p>
                <div class="container-input">
                 <span class="p-inputgroup-addon">
                   <i class="pi pi-envelope"></i>
                 </span>
-                <InputText class="input-text" placeholder="Email" :value="userData.email" />
+                <InputText class="input-text" placeholder="Email" :value="userData.email" :readonly="true" />
               </div>
             </div>
 
             <div class="p-inputgroup flex-1">
-              <p>{{$t('profile-view.phone')}}</p>
+              <p class="paragraph">{{$t('profile-view.phone')}}</p>
                <div class="container-input">
                 <span class="p-inputgroup-addon">
                   <i class="pi pi-phone"></i>
                 </span>
-                <InputText class="input-text" placeholder="Telefono" :value="userData.phone" />
+                <InputText class="input-text" placeholder="Telefono" :value="987654321" :readonly="true" />
               </div>
             </div>
 
             <div class="p-inputgroup flex-1">
-              <p>{{$t('profile-view.password')}}</p>
+              <p class="paragraph">{{$t('profile-view.password')}}</p>
               <div class="container-input">
                 <span class="p-inputgroup-addon">
                   <i class="pi pi-lock"></i>
                 </span>
-                <InputText class="input-text" type="password" placeholder="Contraseña" :value="userData.password" />
+                <InputText class="input-text" type="password" placeholder="Contraseña" :value="123456789" :readonly="true" />
               </div>      
             </div>
           </div>
         </div>
 
         <div class="perfil-buttons">
-          <MyButton :label="$t('profile-view.save-changes')" />
-          <MyButton :label="$t('profile-view.delete-account')" severity="danger" />
+          <pv-button
+            :label="$t('profile-view.logout')"
+            icon="pi pi-sign-out"
+            severity="danger"
+            outlined 
+            @click="logout"
+          />
         </div>
       </div>
     </div>
@@ -72,12 +77,10 @@
 
 <script>
 import InputText from "primevue/inputtext";
-import MyButton from "primevue/button";
 
 export default {
   components: {
     InputText,
-    MyButton
   },
   name: "profile-content",
   data() {
@@ -87,30 +90,20 @@ export default {
   },
   created() {
     this.userData = JSON.parse(localStorage.getItem('user-data')) //obtiene los datos del usuario guardados en el localstorage
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem('user-data') //elimina los datos del usuario guardados en el localstorage
+      this.$router.push({ name: 'login' }) //redirecciona a la pagina de login
+    }
   }
 };
 </script>
 
 <style>
-.perfil-section {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 900px;
-}
-
 .perfil-title {
-  width: 89%;
-  height: 5%;
-  margin-bottom: 40px;
-}
-
-.perfil-title h1 {
-  font-size: 40px;
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  color: black;
+  margin-top: 15px;
+  margin-left: 20px;
 }
 
 .perfil-container {
@@ -122,20 +115,8 @@ export default {
   align-items: center;
 }
 
-.card-profile {
-  width: 75%;
-  height: 100%;
-  border: 1px solid black;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
-  border-radius: 15px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-}
-
 .perfil-img {
-  margin-top: 5px;
+  margin-bottom: 25px;
   width: 100%;
   height: 43%;
   display: flex;
@@ -148,7 +129,6 @@ export default {
   height: 90%;
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .imagen-center img {
@@ -173,11 +153,6 @@ export default {
   margin-bottom: 50px;
 }
 
-.input-text {
-  font-size: 20px;
-  width: 100%;
-}
-
 .p-inputtext {
   border-radius: 0px;
 }
@@ -189,7 +164,6 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 10px;
 }
 
 .container-input{
@@ -211,7 +185,6 @@ export default {
   width: 45%;
   height: 36%;
   font-size: 20px;
-  border-radius: 15px;
   margin-bottom: 20px;
   color: white;
 }
