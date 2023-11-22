@@ -82,15 +82,12 @@ export default {
   name: "profile-content",
   data() {
     return {
-      userData: {
-        nombres: "Seele Vollerei",
-        email: "svollerei@gmail.com",
-        phone: "987654321",
-        password: "mysecretpassword",
-        imagen: "https://cdn.donmai.us/sample/4d/d5/__seele_vollerei_honkai_and_1_more_drawn_by_qingxiao_kiyokiyo__sample-4dd517bc6a4218b771aead3433ff52ae.jpg",
-      },
-    };
+      userData: {}
+    }
   },
+  created() {
+    this.userData = JSON.parse(localStorage.getItem('user-data')) //obtiene los datos del usuario guardados en el localstorage
+  }
 };
 </script>
 

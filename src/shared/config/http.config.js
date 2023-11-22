@@ -11,9 +11,8 @@ export const http = axios.create({
 //interceptor de solicitud (añade el token JWT en cada solicitud)
 http.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('user-token')
+    const token = JSON.parse(localStorage.getItem('user-data'))?.token;
     if (token) {
-      console.log("token")
       config.headers.Authorization = `Bearer ${token}`
     }
     return config
