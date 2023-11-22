@@ -15,7 +15,7 @@ export default {
           password: this.password
         })
         .then((res) => {
-          localStorage.setItem('user-token', res.data.token) //guarda el token
+          localStorage.setItem('user-data', JSON.stringify(res.data)) //guarda los datos del usuario
           this.$router.push('/posts') //redirige a /posts
         })
         .catch((err) => {
