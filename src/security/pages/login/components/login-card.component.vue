@@ -6,11 +6,13 @@ export default {
       email: '',
       password: '',
       submitted: false,
+      loading: false
     }
   },
   methods: {
     login() {
       this.submitted = true;
+      this.loading = true;
       if (this.email && this.password) {
         this.$securityApiService
         .signIn({
@@ -28,6 +30,9 @@ export default {
             detail: err.response.data.message || 'Error al iniciar sesión, intente nuevamente.',
             life: 3000
           })
+        })
+        .finally(() => {
+          this.loading = false;
         })
       }
     }
@@ -79,7 +84,7 @@ export default {
         <br />
 
         <div class="card flex justify-content-center">
-          <pv-button :label="$t('login-view.enter-btn')" class="button-secondary" @click="login"  icon="pi pi-sign-in" />
+          <pv-button :label="$t('login-view.enter-btn')" class="button-secondary" @click="login"  icon="pi pi-sign-in" :disabled="loading" />
         </div>
       </template>
     </pv-card>

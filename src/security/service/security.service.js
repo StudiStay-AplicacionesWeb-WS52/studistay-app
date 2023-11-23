@@ -8,4 +8,12 @@ export class SecurityApiService {
   signUp(data) {
     return http.post('/user/sign-up', data)
   }
+
+  updateAccount(userId, data) {
+    return http.put(`/user/${userId}`, data)
+  }
+
+  deleteAccount(userId) {
+    return http.delete(`/user/${userId}`)
+  }
 }

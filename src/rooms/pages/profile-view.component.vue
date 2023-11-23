@@ -25,7 +25,12 @@
                 <span span class="p-inputgroup-addon">
                   <i class="pi pi-user"></i>
                 </span>
-                <InputText class="input-text" placeholder="Nombres" :value="userData.fullName" :readonly="true" />
+                <pv-input-text
+                  type="text"
+                  v-model.trim="userData.fullName"
+                  class="input-text"
+                  placeholder="Nombres" 
+                />
               </div>
             </div>
 
@@ -35,7 +40,12 @@
                 <span class="p-inputgroup-addon">
                   <i class="pi pi-envelope"></i>
                 </span>
-                <InputText class="input-text" placeholder="Email" :value="userData.email" :readonly="true" />
+                <pv-input-text
+                  type="text"
+                  v-model.trim="userData.email"
+                  class="input-text"
+                  placeholder="Email" 
+                />
               </div>
             </div>
 
@@ -45,7 +55,12 @@
                 <span class="p-inputgroup-addon">
                   <i class="pi pi-phone"></i>
                 </span>
-                <InputText class="input-text" placeholder="Telefono" :value="987654321" :readonly="true" />
+                <pv-input-text
+                  type="text"
+                  v-model.trim="userData.phone"
+                  class="input-text"
+                  placeholder="Teléfono" 
+                />
               </div>
             </div>
 
@@ -55,7 +70,12 @@
                 <span class="p-inputgroup-addon">
                   <i class="pi pi-lock"></i>
                 </span>
-                <InputText class="input-text" type="password" placeholder="Contraseña" :value="123456789" :readonly="true" />
+                <pv-input-text
+                  type="password"
+                  :value="123456789" 
+                  class="input-text"
+                  placeholder="Contraseña" 
+                />
               </div>      
             </div>
           </div>
@@ -69,23 +89,64 @@
             outlined 
             @click="logout"
           />
+
+          <pv-button
+            :label="$t('profile-view.delete-account')"
+            icon="pi pi-trash"
+            severity="danger"
+            @click="confirmDelete"
+          />
+
+          <pv-button
+            :label="$t('profile-view.save-changes')"
+            icon="pi pi-user-edit"
+            severity="primary"
+            @click="updateAccount"
+          />
         </div>
       </div>
     </div>
   </div>
+
+  <!-- DIALOGO DE CONFIRMACION -->
+  <pv-dialog
+    v-model:visible="deleteAccountDialog"
+    :style="{ width: '450px' }"
+    header="Confirm"
+    :modal="true"
+  >
+    <div class="confirmation-content">
+      <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem"></i>
+      <span>
+        ¿Estás seguro de eliminar tu cuenta?
+      </span>
+    </div>
+    <template #footer>
+      <pv-button
+        :label="'No'.toUpperCase()"
+        icon="pi pi-times"
+        class="p-button-text"
+        @click="deleteAccountDialog = false"
+      />
+      <pv-button
+        :label="'Yes'.toUpperCase()"
+        icon="pi pi-check"
+        class="p-button-text"
+        @click="deleteAccount"
+      />
+    </template>
+  </pv-dialog>
 </template>
 
 <script>
-import InputText from "primevue/inputtext";
-
 export default {
-  components: {
-    InputText,
-  },
+  components: {},
   name: "profile-content",
   data() {
     return {
-      userData: {}
+      userData: {},
+      loading: false,
+      deleteAccountDialog: false
     }
   },
   created() {
@@ -95,6 +156,62 @@ export default {
     logout() {
       localStorage.removeItem('user-data') //elimina los datos del usuario guardados en el localstorage
       this.$router.push({ name: 'login' }) //redirecciona a la pagina de login
+    },
+    deleteAccount() {
+      this.loading = true
+      this.$securityApiService.deleteAccount(this.userData.id) //elimina la cuenta del usuario
+        .then(() => {
+          this.$toast.add({
+            severity: 'success',
+            summary: 'Successful',
+            detail: 'Su cuenta ha sido eliminada correctamente',
+            life: 3000
+          })
+          this.logout()
+        })
+        .catch(() => {
+          this.$toast.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'No se pudo eliminar su cuenta, intente nuevamente',
+            life: 3000
+          })
+        })
+        .finally(() => {
+          this.loading = false
+        })
+    },
+    updateAccount() {
+      this.loading = true
+      this.$securityApiService.updateAccount(this.userData.id, this.userData) //actualiza los datos del usuario
+        .then(() => {
+          this.$toast.add({
+            severity: 'success',
+            summary: 'Successful',
+            detail: 'Su datos han sido actualizados correctamente',
+            life: 3000
+          })
+          //actualiza los datos del localstorage
+          let userData = JSON.parse(localStorage.getItem('user-data'))
+          userData.fullName = this.userData.fullName
+          userData.email = this.userData.email
+          userData.phone = this.userData.phone
+          localStorage.setItem('user-data', JSON.stringify(userData))
+        })
+        .catch(() => {
+          this.$toast.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'No se pudo actualizar sus datos, intente nuevamente',
+            life: 3000
+          })
+        })
+        .finally(() => {
+          this.loading = false
+        })
+    },
+    confirmDelete() {
+      this.deleteAccountDialog = true
     }
   }
 };
