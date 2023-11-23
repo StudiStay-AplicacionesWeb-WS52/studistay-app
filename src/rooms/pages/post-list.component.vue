@@ -76,7 +76,7 @@ export default {
     //guarda el post
     savePost() {
       this.submitted = true
-      if (this.post.title.trim()) {
+      if (this.post.title) {
         this.$roomsApiService
           .createPost({
             title: this.post.title,
@@ -243,7 +243,7 @@ export default {
                   outlined
                   @click="showPhone(slotProps.data)"
                 />
-                <pv-button icon="pi pi-heart" class="rounded-button-secondary" rounded outlined />
+                <!-- <pv-button icon="pi pi-heart" class="rounded-button-secondary" rounded outlined /> -->
                 <router-link
                   :to="{ name: 'postDetails', params: { postId: slotProps.data.id } }"
                   custom
@@ -300,9 +300,9 @@ export default {
           cols="20"
           :class="{ 'p-invalid': submitted && !post.description }"
         />
-        <label for="description">{{$('post-details.description')}} </label>
+        <label for="description">Descripción </label>
         <small class="p-error" v-if="submitted && !post.description">
-          {{$('post-details.enter-description')}}
+          Ingresa una descripción
         </small>
       </span>
     </div>
