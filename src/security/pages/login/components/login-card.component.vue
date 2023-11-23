@@ -4,18 +4,21 @@ export default {
   data() {
     return {
       email: '',
-      password: ''
+      password: '',
+      submitted: false,
     }
   },
   methods: {
     login() {
-      this.$securityApiService
+      this.submitted = true;
+      if (this.email && this.password) {
+        this.$securityApiService
         .signIn({
           email: this.email,
           password: this.password
         })
         .then((res) => {
-          localStorage.setItem('user-token', res.data.token) //guarda el token
+          localStorage.setItem('user-data', JSON.stringify(res.data)) //guarda los datos del usuario
           this.$router.push('/posts') //redirige a /posts
         })
         .catch((err) => {
@@ -26,6 +29,7 @@ export default {
             life: 3000
           })
         })
+      }
     }
   }
 }
@@ -33,40 +37,49 @@ export default {
 
 <template>
   <br /><br />
-  <div class="card">
-    <pv-card>
-      <template #title> {{ $t('login-view.login') }} </template>
+  <div class="centered-container">
+    <pv-card class="p-fluid" style="max-width: 90%;">
+      <template #title> 
+        <span class="paragraph font-bold"> {{ $t('login-view.login') }}</span>  
+      </template>
       <template #content>
-        <p>
-          {{ $t('login-view.email') }}
-        </p>
-        <div class="card flex flex-wrap justify-content-center gap-3">
-          <span class="p-input-icon-left">
-            <i class="pi pi-envelope" />
-            <pv-input-text
-              v-model="email"
-              :placeholder="$t('login-view.enter-email')"
-            ></pv-input-text>
-          </span>
-        </div>
-        <p>
-          {{ $t('login-view.password') }}
-        </p>
-        <div class="card flex flex-wrap justify-content-center gap-3">
-          <span class="p-input-icon-left">
-            <i class="pi pi-lock" />
-            <pv-input-text
-              type="password"
-              v-model="password"
-              :placeholder="$t('login-view.enter-password')"
-            ></pv-input-text>
+        <div class="field paragraph mt-3">
+          <span class="p-input-icon-left p-float-label">
+            <i class="pi pi-envelope"></i>
+            <pv-input-text 
+              type="text"
+              id="email"
+              v-model.trim="email"
+              required="true"
+              autofocus
+              :class="{ 'p-invalid': submitted && !email }"
+              :placeholder="$t('login-view.enter-email')" 
+            />
+            <label for="email">{{ $t('login-view.email') }}</label>
+            <small class="p-error" v-if="submitted && !email">Ingrese su email</small>
           </span>
         </div>
 
-        <br /><br />
+        <div class="field paragraph mt-3">
+          <span class="p-input-icon-left p-float-label">
+            <i class="pi pi-lock"></i>
+            <pv-input-text 
+              type="password"
+              id="password"
+              v-model.trim="password"
+              required="true"
+              autofocus
+              :class="{ 'p-invalid': submitted && !password }"
+              :placeholder="$t('login-view.enter-password')" 
+            />
+            <label for="password">{{ $t('login-view.password') }}</label>
+            <small class="p-error" v-if="submitted && !password">Ingrese su contraseña</small>
+          </span>
+        </div>
+        <br />
 
         <div class="card flex justify-content-center">
-          <pv-button :label="$t('login-view.enter-btn')" class="button-primary" @click="login" />
+          <pv-button :label="$t('login-view.enter-btn')" class="button-secondary" @click="login"  icon="pi pi-sign-in" />
         </div>
       </template>
     </pv-card>
@@ -74,9 +87,10 @@ export default {
 </template>
 
 <style>
-.card {
-  text-align: center;
-  align-items: center;
-  position: relative;
-}
+  .centered-container {
+    text-align: center;
+    display: flex; /* Usa Flexbox */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+  }
 </style>

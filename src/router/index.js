@@ -50,7 +50,7 @@ const router = createRouter({
 
 //verifica si el usuario esta autenticado para acceder a las rutas
 router.beforeEach((to, from, next) => {
-  const isAuthenticated = localStorage.getItem('user-token');
+  const isAuthenticated = JSON.parse(localStorage.getItem('user-data'))?.token;
   const publicPages = ['/login', '/register']; //rutas que no requieren autenticación
   const authRequired = !publicPages.includes(to.path);
 

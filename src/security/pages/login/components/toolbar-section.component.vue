@@ -1,5 +1,5 @@
 <script>
-import LanguageComponent from '@/security/pages/login/components/language.component.vue';
+import LanguageComponent from '@/shared/components/language.component.vue';
 
 export default {
   name: 'toolbar-section',
@@ -40,8 +40,9 @@ export default {
             @click="navigate"
           ></pv-button>
           </router-link>
+          
+          <language-component />
         </div>
-        <language-component></language-component>
       </template>
     </pv-toolbar>
   </header>

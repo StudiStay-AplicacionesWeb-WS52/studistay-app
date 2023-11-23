@@ -96,7 +96,8 @@ const i18n = createI18n({
                 "email": "Email",
                 "password": "Contraseña",
                 "save-changes": "Guardar cambios",
-                "delete-account": "Eliminar cuenta"
+                "delete-account": "Eliminar cuenta",
+                "logout": "Cerrar sesión"
             }    
         },
         en: {
@@ -192,7 +193,8 @@ const i18n = createI18n({
                 "email": "Email",
                 "password": "Password",
                 "save-changes": "Save changes",
-                "delete-account": "Delete account"
+                "delete-account": "Delete account",
+                "logout": "Log out"
             }    
         }
     }
